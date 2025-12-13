@@ -6,12 +6,10 @@
 # Usage: ./zip-optimizer <directory or ZIP> <directory or ZIP> ...
 
 find_zip_files() {
-    local target_path="$1"
-
-    if [ -d "$target_path" ]; then
-        find "$target_path" -maxdepth 1 -name "*.zip" | sort
-    elif [[ "$target_path" == *.zip ]]; then
-        echo "$target_path"
+    if [ -d "$1" ]; then
+        find "$1" -maxdepth 1 -name "*.zip" | sort
+    elif [[ "$1" == *.zip ]]; then
+        echo "$1"
     fi
 }
 
