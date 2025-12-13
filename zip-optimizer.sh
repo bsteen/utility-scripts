@@ -29,6 +29,11 @@ process_arguments() {
 
         local found_files=$(find_zip_files "$resolved_path") # Depending on the user args, may return duplicate files
 
+        if [ -z "$found_files" ]; then
+            echo "No ZIP archive(s) found: $resolved_path" >&2
+            continue
+        fi
+
         # Record each ZIP filepath that has been seen
         # If a filepath has already been added to zip_files, don't add it again
         # This prevents recompressing the same file if a duplicate path is found
@@ -45,8 +50,7 @@ process_arguments() {
 
 ZIP_FILES=$(process_arguments "$@")
 
-if [ -z "$ZIP_FILES" ]; then
-    echo "No ZIP archives found"
+if [ -z "$ZIP_FILES" ]; then    # No ZIPs found
     exit 1
 fi
 
