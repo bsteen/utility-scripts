@@ -8,12 +8,10 @@
 find_zip_files() {
     local target_path="$1"
 
-    if [ -f "$target_path" ]; then
-        if [[ "$target_path" == *.zip ]]; then
-            echo "$target_path"
-        fi
-    elif [ -d "$target_path" ]; then
+    if [ -d "$target_path" ]; then
         find "$target_path" -maxdepth 1 -name "*.zip" | sort
+    elif [[ "$target_path" == *.zip ]]; then
+        echo "$target_path"
     fi
 }
 
