@@ -29,12 +29,13 @@ process_arguments() {
 
         local found_files=$(find_zip_files "$resolved_path") # Depending on the user args, may return duplicate files
 
-        # Loop through files, recording each file that has been seen
-        # If a file has been already added to zip_files, don't add it
+        # Record each ZIP filepath that has been seen
+        # If a filepath has already been added to zip_files, don't add it again
+        # This prevents recompressing the same file if a duplicate path is found
         while IFS= read -r zip_file; do
             if [ -z "${seen_files[$zip_file]}" ]; then
-                seen_files[$zip_file]=1     # Mark zip_file as seen
-                zip_files+="$zip_file"$'\n' # Add unique file, appending with a literal new line character
+                seen_files[$zip_file]=1     # Mark filepath as seen
+                zip_files+="$zip_file"$'\n' # Add unique filepath, appending with a literal new line character
             fi
         done <<< "$found_files"
     done
