@@ -46,7 +46,7 @@ process_arguments() {
     echo "$zip_files" | sed -z "s/\n$//" | sort   # Return the unique ZIP file paths, sorted, and final newline of the list removed
 }
 
-ZIP_FILES=$(process_arguments $@)
+ZIP_FILES=$(process_arguments "$@")
 
 if [ -z "$ZIP_FILES" ]; then
     echo "No ZIP archives found"
