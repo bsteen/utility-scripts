@@ -7,7 +7,7 @@
 
 find_zip_files() {
     if [ -d "$1" ]; then
-        find "$1" -maxdepth 1 -name "*.zip" | sort
+        find "$1" -maxdepth 1 -name "*.zip"
     elif [[ "$1" == *.zip ]]; then
         echo "$1"
     fi
