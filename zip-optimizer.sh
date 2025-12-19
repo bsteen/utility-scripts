@@ -5,6 +5,20 @@
 # Prints the space saved per file and the total space saved at the end
 # Usage: ./zip-optimizer <directory or ZIP> <directory or ZIP> ...
 
+exit_script() {
+    if [ -n "$TEMP_DIR" ]; then
+        rm -rf "$TEMP_DIR"
+    fi
+
+    if [ -n "$total_saved_bytes" ]; then
+        total_saved_human=$(numfmt --to=iec-i --suffix=B --format='%.1f' "$total_saved_bytes")
+        echo "Total space saved: $total_saved_human ($total_saved_bytes)"
+    fi
+
+    exit $1
+}
+trap 'exit_script 130' INT  # Captures ctrl+c to allow for cleanup
+
 find_zip_files() {
     if [ -d "$1" ]; then
         find "$1" -maxdepth 1 -name "*.zip"
@@ -48,10 +62,13 @@ process_arguments() {
     echo "$zip_files" | sed -z "s/\n$//" | sort   # Return the unique ZIP file paths, sorted, and final newline of the list removed
 }
 
+# Main logic starts here
+total_saved_bytes=0
+
 ZIP_FILES=$(process_arguments "$@")
 
 if [ -z "$ZIP_FILES" ]; then    # No ZIPs found
-    exit 1
+    exit_script 1
 fi
 
 FILE_COUNT=$(echo "$ZIP_FILES" | wc -l)
@@ -59,11 +76,9 @@ FILE_COUNT_WIDTH=${#FILE_COUNT}
 INDENT_WIDTH=$(( FILE_COUNT_WIDTH * 2 + 1 ))
 echo "Optimizing $FILE_COUNT ZIP archives..."
 
-TEMP_DIR=$(mktemp -d)
+TEMP_DIR=$(mktemp -d)   # Create tmp folder after we know there are ZIP files to work with
 
 count=1
-total_saved_bytes=0
-# FIXME ctrl-c not handled properly when in loop
 while IFS= read -r zip_file; do
     printf "%0${FILE_COUNT_WIDTH}d/${FILE_COUNT} Processing ${zip_file}\n" "$count"
 
@@ -88,7 +103,4 @@ while IFS= read -r zip_file; do
     count=$(( count + 1 ))
 done <<< "$ZIP_FILES"
 
-rm -rf "$TEMP_DIR"
-
-total_saved_human=$(numfmt --to=iec-i --suffix=B --format='%.1f' $total_saved_bytes)
-echo "Total space saved: $total_saved_human ($total_saved_bytes)"
+exit_script 0
