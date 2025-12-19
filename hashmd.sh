@@ -2,7 +2,7 @@
 # (C) 2020 Benjamin Steenkamer.
 # Calculates the checksum/hashes of all the files in a folder and then
 # generates a Markdown-style table of the results. The results are outputted
-# into `output.md` (not really a "simple" script any more...).
+# into `output.md`.
 # Usage:
 # Create table from files in given directory (no directory means current one):
 #   `./hashmd.sh path/to/dir` or `./hashmd.sh`

@@ -1,5 +1,6 @@
-# simple-scripts
-A collection of simple but useful Bash scripts so I don't have to remember the commands. Most scripts deal with `.pdf` or video file manipulation/conversion. Some scripts have become less "simple" over time as I add more functionality, but my goal is to make the code easy to understand over making it compact or efficient.
+# utility-scripts
+A collection of Bash scripts so I don't have to remember the commands. Most scripts deal with `.pdf` or video file manipulation/conversion.
+The original idea was for these scripts to be "simple", but some have gotten complicated as I add functionality. My goal is to make the code easy to understand, versus prioritizing compact or efficient code.
 
 See [`LICENSE`](LICENSE) for details.
 
