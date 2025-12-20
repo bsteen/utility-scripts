@@ -2,6 +2,10 @@
 # (C) 2025 Benjamin Steenkamer
 # Zip uncompressed files in a directory into their own ZIPs
 # Each file will be deleted after being successfully zipped
+exit_script() {
+    exit 130
+}
+trap 'exit_script' INT  # Captures ctrl+c to cleanly exit for-loop
 
 if [[ -z "$1" || ! -d "$1" ]]; then
     echo "Usage: $0 <directory>"
