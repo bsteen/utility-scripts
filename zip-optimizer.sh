@@ -4,7 +4,6 @@
 # Replaces the original ZIP archive if space is saved
 # Prints the space saved per file and the total space saved at the end
 # Usage: ./zip-optimizer <directory or ZIP> <directory or ZIP> ...
-
 exit_script() {
     if [ -n "$TEMP_DIR" ]; then
         rm -rf "$TEMP_DIR"
@@ -17,7 +16,7 @@ exit_script() {
 
     exit $1
 }
-trap 'exit_script 130' INT  # Captures ctrl+c to allow for cleanup
+trap 'exit_script 130' SIGINT  # Captures ctrl+c to allow for cleanup
 
 find_zip_files() {
     if [ -d "$1" ]; then
