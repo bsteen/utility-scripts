@@ -37,6 +37,10 @@ See [`LICENSE`](LICENSE) for details.
 * `2iso.sh`
    * Converts a single file or folder into a `.iso` file
    * Requires `mkisofs`
+* `dencrypt.sh`
+   * If input file is encrypted with GPG, attempt to decrypt it
+   * Otherwise, encrypt input file with AES256
+   * Requires `gnupg`
 * `hashmd.sh`
     * Calculates the checksum/hashes of all the files in a folder and generates a Markdown-style table of the results.
     * Requires `libarchive-zip-perl`
