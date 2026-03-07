@@ -1,5 +1,5 @@
 #!/bin/bash
-# (C) 2025 Benjamin Steenkamer
+# (C) 2025 - 2026 Benjamin Steenkamer
 # Recompress all the ZIP archives provided using the highest compression level
 # Replaces the original ZIP archive if space is saved
 # Prints the space saved per file and the total space saved at the end
