@@ -86,7 +86,7 @@ while IFS= read -r zip_file; do
 
     file_basename=$(basename "$zip_file")
     new_zip_file="$TEMP_DIR/$file_basename"
-    7z a -tzip -mx=9 -mmt=on "$new_zip_file" "$TEMP_DIR/*" > /dev/null
+    7z a -bso0 -tzip -mm=Deflate64 -mx=9 -mmt=on "$new_zip_file" "$TEMP_DIR/*" # bso0 = Only show errors and progress
 
     new_size_bytes=$(stat -c %s "$new_zip_file")
 
