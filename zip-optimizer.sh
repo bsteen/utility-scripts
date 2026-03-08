@@ -82,7 +82,7 @@ while IFS= read -r zip_file; do
     printf "%0${FILE_COUNT_WIDTH}d/${FILE_COUNT} Processing ${zip_file}\n" "$count"
 
     old_size_bytes=$(stat -c %s "$zip_file")
-    7z x "$zip_file" -y -o"$TEMP_DIR" > /dev/null
+    7z x -bso0 "$zip_file" -y -o"$TEMP_DIR" # bso0 = Only show errors and progress
 
     file_basename=$(basename "$zip_file")
     new_zip_file="$TEMP_DIR/$file_basename"
