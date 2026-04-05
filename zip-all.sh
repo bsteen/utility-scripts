@@ -30,6 +30,6 @@ for file in *; do
         fi
 
         echo "Compressing '$file' to '$archive_name'"
-        7z a "$archive_name" "$file" -tzip -mmt=on -mx=9 -sdel -y > /dev/null
+        7z a -bso0 "$archive_name" "$file" -tzip -mmt=on -mx=9 -sdel -y   # bso0 = Only show errors and progress
     fi
 done
