@@ -16,7 +16,13 @@ convert -density 300 "$1" ${TEMP_DIR}/page.png
 
 # Get PNG names by numeric order
 echo "Converting PNGs to PDF..."
-convert $(ls -1 ${TEMP_DIR}/*.png | sort -V) "${1%.pdf}-converted.pdf"
 
-rm -rf ${TEMP_DIR}
+# Convert PNGs back to PDF in temp folder
+title="${TEMP_DIR}/$(basename $1)"
+convert $(ls -1 ${TEMP_DIR}/*.png | sort -V) -define pdf:author="" -define pdf:creator="" -define pdf:producer="" ${title}
+
+# Move PDF back to original folder
+mv $title ${1%.pdf}-converted.pdf
+
+rm -rf $TEMP_DIR
 echo "Done"
